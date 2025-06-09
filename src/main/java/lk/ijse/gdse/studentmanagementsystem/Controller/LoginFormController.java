@@ -32,6 +32,7 @@ public class LoginFormController {
         if(userName.equals("admin") && password.equals("1234")){
             AnchorPaneLogin.getChildren().clear();
             AnchorPane load = FXMLLoader.load(getClass().getResource("/view/HomeForm.fxml"));
+            AnchorPaneLogin.getChildren().add(load);
         } else {
             new Alert(Alert.AlertType.ERROR, "Invalid Username or Password").show();
         }
