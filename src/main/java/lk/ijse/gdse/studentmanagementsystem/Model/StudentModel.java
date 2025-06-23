@@ -29,7 +29,7 @@ public class StudentModel {
 
     public boolean updateStudent(StudentDto studentDto) throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "update customer set student_name=?,student_address=?,student_birth_day=? ,student_age=?, student_phone_number=? where student_id=?";
+        String sql = "update student set student_name=?,student_address=?,student_birth_day=? ,student_age=?, student_phone_number=? where student_id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, studentDto.getStudentName());
         preparedStatement.setString(2, studentDto.getStudentAddress());

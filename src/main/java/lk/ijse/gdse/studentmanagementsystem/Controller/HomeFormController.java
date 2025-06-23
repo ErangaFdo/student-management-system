@@ -2,9 +2,13 @@ package lk.ijse.gdse.studentmanagementsystem.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+
+import javax.swing.*;
+import java.io.IOException;
 
 public class HomeFormController {
 
@@ -75,7 +79,20 @@ public class HomeFormController {
 
     @FXML
     void btnStudentOnAction(ActionEvent event) {
+             navigateTo("/view/StudentView.fxml");
+    }
 
+    private void navigateTo(String fxmlPath) {
+        try {
+            loadingAnchorPane.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            AnchorPane loadedPane = loader.load();
+            loadingAnchorPane.getChildren().add(loadedPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to load view: " + fxmlPath);
+        }
+        System.out.println("Loadin");
     }
 
 }
