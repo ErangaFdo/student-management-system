@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
 
-
-<AnchorPane fx:id="AnchorPaneLogin" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.studentmanagementsystem.Controller.LoginFormController">
+<AnchorPane fx:id="AnchorPaneLogin" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom, #2563EB, #60A5FA);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.studentmanagementsystem.Controller.LoginFormController">
    <children>
-      <TextField fx:id="textUserName" layoutX="299.0" layoutY="245.0" prefHeight="34.0" prefWidth="314.0" promptText="enter your name" />
-      <TextField fx:id="TextUserPassword" layoutX="299.0" layoutY="302.0" prefHeight="34.0" prefWidth="314.0" promptText="enter your password" />
-      <Button fx:id="btnLogin" layoutX="406.0" layoutY="363.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="34.0" prefWidth="99.0" text="Login">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
+      <!-- White Card -->
+      <VBox layoutX="250.0" layoutY="170.0" spacing="20.0" alignment="CENTER" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);">
+
+         <!-- Title -->
+         <Label text="STUDENT" textFill="#1E293B" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+         <Label text="MANAGEMENT SYSTEM" textFill="#1E293B" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+         <!-- Username -->
+         <TextField fx:id="textUserName" promptText="enter your name" prefHeight="40.0" prefWidth="300.0" style="-fx-background-radius: 10; -fx-font-size: 14px;" />
+
+         <!-- Password -->
+         <PasswordField fx:id="TextUserPassword" promptText="enter your password" prefHeight="40.0" prefWidth="300.0" style="-fx-background-radius: 10; -fx-font-size: 14px;" />
+
+         <!-- Login Button -->
+         <Button fx:id="btnLogin" text="Login" onAction="#btnLoginOnAction" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+      </VBox>
    </children>
 </AnchorPane>
