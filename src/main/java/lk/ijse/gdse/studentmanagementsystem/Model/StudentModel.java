@@ -54,13 +54,13 @@ public class StudentModel {
         return issave;
     }
 
-    public List<StudentDto> getAllStudent() throws SQLException, ClassNotFoundException {
+    public  ArrayList<StudentDto> getAllStudent() throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from student";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        List<StudentDto> studentDtos = new ArrayList<>();
+        ArrayList<StudentDto> studentDtos = new ArrayList<>();
 
         while (resultSet.next()) {
             StudentDto studentDto = new StudentDto();

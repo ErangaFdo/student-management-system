@@ -7,5 +7,6 @@ module lk.ijse.gdse.studentmanagementsystem {
 
 
     opens lk.ijse.gdse.studentmanagementsystem.Controller to javafx.fxml;
+    opens lk.ijse.gdse.studentmanagementsystem.Dto.Tm to javafx.base;
     exports lk.ijse.gdse.studentmanagementsystem;
 }
