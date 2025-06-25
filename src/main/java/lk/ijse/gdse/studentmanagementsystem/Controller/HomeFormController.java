@@ -49,7 +49,7 @@ public class HomeFormController {
 
     @FXML
     void btnCourseOnAction(ActionEvent event) {
-
+        navigateTo("/view/Course.fxml");
     }
 
     @FXML

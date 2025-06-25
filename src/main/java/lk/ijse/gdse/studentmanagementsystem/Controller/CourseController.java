@@ -87,6 +87,8 @@ public class CourseController implements Initializable {
 
             boolean isDeleted = courseModel.deleteCourse(ID);
             if (isDeleted) {
+                loadCourse();
+                refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Customer deleted...!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to delete customer...!").show();
@@ -107,6 +109,8 @@ public class CourseController implements Initializable {
           boolean isSave = courseModel.saveCourse(courseDto);
 
           if (isSave) {
+              loadCourse();
+              refreshPage();
             System.out.println("save success");
           } else {
             System.out.println("save failed");
@@ -127,6 +131,8 @@ public class CourseController implements Initializable {
         boolean isSave = courseModel.updateCourse(courseDto);
 
         if (isSave) {
+            loadCourse();
+            refreshPage();
             System.out.println("update success");
         } else {
             System.out.println(" update filed");

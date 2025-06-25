@@ -42,11 +42,11 @@ public class CourseModel {
         return isSave;
     }
 
-    public boolean deleteCourse(String courseDto) throws SQLException, ClassNotFoundException {
+    public boolean deleteCourse(String courseid) throws SQLException, ClassNotFoundException {
           Connection connection = DbConnection.getInstance().getConnection();
           String sql = "delete from course where course_id = ?";
           PreparedStatement preparedStatement = connection.prepareStatement(sql);
-          preparedStatement.setString(1, courseDto.getCourseId());
+          preparedStatement.setString(1, courseid);
 
           int i = preparedStatement.executeUpdate();
           boolean isSave = i > 0;

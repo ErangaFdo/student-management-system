@@ -183,11 +183,6 @@ public class StudentController implements Initializable {
           studentTable.setItems(studentTms);
     }
 
-
-
-
-
-
     @FXML
     void tableOnClick(MouseEvent event) {
                StudentTm studentTm = (StudentTm) studentTable.getSelectionModel().getSelectedItem();
