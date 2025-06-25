@@ -2,10 +2,7 @@ package lk.ijse.gdse.studentmanagementsystem.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.studentmanagementsystem.DbConnection.DbConnection;
@@ -14,6 +11,7 @@ import lk.ijse.gdse.studentmanagementsystem.Model.CourseModel;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class CourseController {
 
@@ -69,13 +67,25 @@ public class CourseController {
 
     @FXML
     void btnClearOnAction(ActionEvent event) {
-
+        refreshPage();
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) {
+    void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String ID = lblCourseId.getText();
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
 
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            boolean isDeleted = courseModel.deleteCourse(ID);
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer deleted...!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to delete customer...!").show();
+            }
+        }
     }
 
     @FXML
@@ -120,6 +130,19 @@ public class CourseController {
 
     @FXML
     void tableOnClick(MouseEvent event) {
+
+    }
+
+    private void refreshPage(){
+         btnSave.setDisable(false);
+         btnUpdate.setDisable(true);
+         btnDelete.setDisable(true);
+
+         lblCourseId.setText("");
+         lblCourseName.setText("");
+         lblCoursePayment.setText("");
+         lblCourseDiuration.setText("");
+         lblStudentId.setText("");
 
     }
 
