@@ -136,7 +136,19 @@ public class CourseController implements Initializable {
 
     @FXML
     void tableOnClick(MouseEvent event) {
+             CourseTm courseTm = courseTable.getSelectionModel().getSelectedItem();
+             if (courseTm != null) {
+                 lblCourseId.setText(courseTm.getCourseId());
+                 lblCourseName.setText(courseTm.getCourseName());
+                 lblCoursePayment.setText(courseTm.getCoursePayment());
+                 lblCourseDiuration.setText(courseTm.getCourseDiuration());
+                 lblStudentId.setText(courseTm.getStudentId());
 
+                 btnSave.setDisable(false);
+                 btnUpdate.setDisable(true);
+                 btnDelete.setDisable(true);
+
+             }
     }
 
     private void refreshPage(){
