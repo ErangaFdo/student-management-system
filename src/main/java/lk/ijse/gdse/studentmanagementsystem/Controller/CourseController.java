@@ -1,19 +1,25 @@
 package lk.ijse.gdse.studentmanagementsystem.Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.gdse.studentmanagementsystem.DbConnection.DbConnection;
 import lk.ijse.gdse.studentmanagementsystem.Dto.CourseDto;
+import lk.ijse.gdse.studentmanagementsystem.Dto.Tm.CourseTm;
 import lk.ijse.gdse.studentmanagementsystem.Model.CourseModel;
 
-import java.sql.Connection;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class CourseController {
+public class CourseController implements Initializable {
 
     CourseModel courseModel = new CourseModel();
 
@@ -48,7 +54,7 @@ public class CourseController {
     private AnchorPane courseAnchorPane;
 
     @FXML
-    private TableView<?> courseTable;
+    private TableView<CourseTm> courseTable;
 
     @FXML
     private TextField lblCourseDiuration;
@@ -146,5 +152,38 @@ public class CourseController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+         clmId.setCellValueFactory(new PropertyValueFactory<>("CourseId"));
+         clmName.setCellValueFactory(new PropertyValueFactory<>("CourseName"));
+         clmPayment.setCellValueFactory(new PropertyValueFactory<>("CoursePayment"));
+         clmDiuration.setCellValueFactory(new PropertyValueFactory<>("CourseDiuration"));
+         clmStudentId.setCellValueFactory(new PropertyValueFactory<>("StudentId"));
+
+          try {
+              loadCourse();
+          } catch (SQLException e) {
+              throw new RuntimeException(e);
+          } catch (ClassNotFoundException e) {
+              throw new RuntimeException(e);
+          }
+    }
+
+    private void loadCourse() throws SQLException, ClassNotFoundException {
+        ArrayList<CourseDto> courseDtos = courseModel.getAllCourse();
+        ObservableList<CourseTm> courseTms = FXCollections.observableArrayList();
+
+        for (CourseDto courseDto : courseDtos) {
+            CourseTm courseTm = new CourseTm();
+            courseTm.setCourseId(courseDto.getCourseId());
+            courseTm.setCourseName(courseDto.getCourseName());
+            courseTm.setCoursePayment(courseDto.getCoursePayment());
+            courseTm.setCourseDiuration(courseDto.getCourseDiuration());
+            courseTm.setStudentId(courseDto.getStudentId());
+
+            courseTms.add(courseTm);
+        }
+        courseTable.setItems(courseTms);
+    }
 }
 
