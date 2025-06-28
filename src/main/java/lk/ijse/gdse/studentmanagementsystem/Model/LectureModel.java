@@ -41,4 +41,15 @@ public class LectureModel {
         boolean isSaved = i > 0 ;
         return isSaved ;
     }
+
+    public boolean deleteLecture(String lectureId) throws SQLException, ClassNotFoundException {
+          Connection connection = DbConnection.getInstance().getConnection();
+          String sql = "DELETE FROM lectures WHERE lecture_id=?";
+          PreparedStatement preparedStatement = connection.prepareStatement(sql);
+          preparedStatement.setString(1,lectureId);
+
+          int i = preparedStatement.executeUpdate();
+          boolean isSaved = i > 0 ;
+          return isSaved;
+    }
 }

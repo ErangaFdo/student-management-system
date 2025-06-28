@@ -9,6 +9,7 @@ import lk.ijse.gdse.studentmanagementsystem.Dto.LectureDto;
 import lk.ijse.gdse.studentmanagementsystem.Model.LectureModel;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class LectureController {
 
@@ -69,7 +70,22 @@ public class LectureController {
     private TableView<?> lectureTable;
 
     @FXML
-    void btnClearOnAction(ActionEvent event) {
+    void btnClearOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String ID = lblID.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            boolean isDeleted = lectureModel.deleteLecture(ID);
+            if (isDeleted) {
+
+                new Alert(Alert.AlertType.INFORMATION, "Lecture deleted...!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to delete Lecture...!").show();
+            }
+        }
 
     }
 
