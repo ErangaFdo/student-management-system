@@ -25,4 +25,20 @@ public class LectureModel {
           boolean isSaved = i > 0 ;
           return isSaved ;
       }
+
+    public boolean updateLecture(LectureDto lectureDto) throws SQLException, ClassNotFoundException {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE lectures SET lectures_name=?, lectures_age=?, lectures_address=?, lecture_phone=?, coures_id=? WHERE lecture_id=? ";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1,lectureDto.getLectureId());
+        preparedStatement.setString(2,lectureDto.getLectureName());
+        preparedStatement.setString(3,lectureDto.getLectureAge());
+        preparedStatement.setString(4,lectureDto.getLectureAdress());
+        preparedStatement.setString(5,lectureDto.getLecturePhone());
+        preparedStatement.setString(6,lectureDto.getCouresId());
+
+        int i = preparedStatement.executeUpdate();
+        boolean isSaved = i > 0 ;
+        return isSaved ;
+    }
 }

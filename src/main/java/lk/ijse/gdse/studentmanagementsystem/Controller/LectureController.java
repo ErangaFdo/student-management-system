@@ -100,7 +100,22 @@ public class LectureController {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String lecId = lblID.getText();
+        String lecName = lblNAME.getText();
+        String age = lblAGE.getText();
+        String adress = lblADRESS.getText();
+        String phone = lblMNUM.getText();
+        String courseId = lblCoureseId.getText();
+
+        LectureDto lectureDto = new LectureDto(lecId, lecName, age,adress, phone, courseId);
+        boolean isSave = lectureModel.updateLecture(lectureDto);
+
+        if (isSave) {
+            new Alert(Alert.AlertType.INFORMATION, "Lecture Updated...!").show();
+        }else{
+            new Alert(Alert.AlertType.INFORMATION, "Lecture  not Updated").show();
+        }
 
     }
 
