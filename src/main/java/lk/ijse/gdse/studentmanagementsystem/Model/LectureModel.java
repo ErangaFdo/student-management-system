@@ -1,0 +1,28 @@
+package lk.ijse.gdse.studentmanagementsystem.Model;
+
+import lk.ijse.gdse.studentmanagementsystem.DbConnection.DbConnection;
+import lk.ijse.gdse.studentmanagementsystem.Dto.LectureDto;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class LectureModel {
+
+
+      public boolean saveLecture(LectureDto lectureDto) throws SQLException, ClassNotFoundException {
+          Connection connection = DbConnection.getInstance().getConnection();
+          String sql = "INSERT INTO lectures VALUES(?,?,?,?,?,?)";
+          PreparedStatement preparedStatement = connection.prepareStatement(sql);
+          preparedStatement.setString(1,lectureDto.getLectureId());
+          preparedStatement.setString(2,lectureDto.getLectureName());
+          preparedStatement.setString(3,lectureDto.getLectureAge());
+          preparedStatement.setString(4,lectureDto.getLectureAdress());
+          preparedStatement.setString(5,lectureDto.getLecturePhone());
+          preparedStatement.setString(6,lectureDto.getCouresId());
+
+          int i = preparedStatement.executeUpdate();
+          boolean isSaved = i > 0 ;
+          return isSaved ;
+      }
+}
