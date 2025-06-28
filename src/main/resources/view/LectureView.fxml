@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="lectureAnchorPane" prefHeight="700.0" prefWidth="658.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.studentmanagementsystem.Controller.LectureController">
+
+    <children>
+        <Label layoutX="220.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="Lecture Registration" />
+
+        <!-- Labels + Fields -->
+        <VBox layoutX="40.0" layoutY="70.0" spacing="12.0">
+            <HBox spacing="20.0">
+                <Label prefWidth="120.0" text="Lecture ID" />
+                <TextField fx:id="lblID" prefWidth="300.0" style="-fx-background-radius: 10;" />
+            </HBox>
+            <HBox spacing="20.0">
+                <Label prefWidth="120.0" text="Name" />
+                <TextField fx:id="lblNAME" prefWidth="300.0" style="-fx-background-radius: 10;" />
+            </HBox>
+            <HBox spacing="20.0">
+                <Label prefWidth="120.0" text="Age" />
+                <TextField fx:id="lblAGE" prefWidth="300.0" style="-fx-background-radius: 10;" />
+            </HBox>
+            <HBox spacing="20.0">
+                <Label prefWidth="120.0" text="Address" />
+                <TextField fx:id="lblADRESS" prefWidth="300.0" style="-fx-background-radius: 10;" />
+            </HBox>
+            <HBox spacing="20.0">
+                <Label prefWidth="120.0" text="Mobile No." />
+                <TextField fx:id="lblMNUM" prefWidth="300.0" style="-fx-background-radius: 10;" />
+            </HBox>
+            <HBox spacing="20.0">
+                <Label prefWidth="120.0" text="Course ID" />
+                <TextField fx:id="lblCoureseId" prefWidth="300.0" style="-fx-background-radius: 10;" />
+            </HBox>
+        </VBox>
+
+        <!-- Action Buttons -->
+        <HBox layoutX="80.0" layoutY="310.0" spacing="15.0">
+            <Button fx:id="btnSave" onAction="#btnSaveOnAction" prefWidth="100.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 10;" text="SAVE" />
+            <Button fx:id="btnUpdate" onAction="#btnUpdateOnAction" prefWidth="100.0" style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-background-radius: 10;" text="UPDATE" />
+            <Button fx:id="btnDelete" onAction="#btnDeleteOnAction" prefWidth="100.0" style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-background-radius: 10;" text="DELETE" />
+            <Button fx:id="btnClear" onAction="#btnClearOnAction" prefWidth="100.0" style="-fx-background-color: #64748B; -fx-text-fill: white; -fx-background-radius: 10;" text="CLEAR" />
+        </HBox>
+
+        <!-- Table -->
+        <TableView fx:id="lectureTable" layoutX="20.0" layoutY="370.0" onMouseClicked="#tableOnClick" prefHeight="300.0" prefWidth="620.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+            <columns>
+                <TableColumn fx:id="clmId" prefWidth="100.0" text="Lecture ID" />
+                <TableColumn fx:id="clmName" prefWidth="148.800048828125" text="Name" />
+                <TableColumn fx:id="clmAge" prefWidth="75.199951171875" text="Age" />
+                <TableColumn fx:id="clmAdress" prefWidth="118.4000244140625" text="Address" />
+                <TableColumn fx:id="clmMnum" prefWidth="100.79998779296875" text="Mobile No." />
+                <TableColumn fx:id="clmCourseId" prefWidth="76.79998779296875" text="Course ID" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
