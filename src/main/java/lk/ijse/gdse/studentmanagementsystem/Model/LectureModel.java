@@ -5,7 +5,9 @@ import lk.ijse.gdse.studentmanagementsystem.Dto.LectureDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LectureModel {
 
@@ -51,5 +53,25 @@ public class LectureModel {
           int i = preparedStatement.executeUpdate();
           boolean isSaved = i > 0 ;
           return isSaved;
+    }
+
+    public ArrayList<LectureDto> getAllLectures() throws SQLException, ClassNotFoundException {
+          Connection connection = DbConnection.getInstance().getConnection();
+          String sql = "SELECT * FROM lectures";
+          PreparedStatement preparedStatement = connection.prepareStatement(sql);
+          ResultSet resultSet = preparedStatement.executeQuery();
+          ArrayList<LectureDto> lectureDtos = new ArrayList<>();
+
+          while (resultSet.next()) {
+              LectureDto lectureDto = new LectureDto();
+              lectureDto.setLectureId(resultSet.getString("lectures_id"));
+              lectureDto.setLectureName(resultSet.getString("lectures_name"));
+              lectureDto.setLectureAge(resultSet.getString("lectures_age"));
+              lectureDto.setLectureAdress(resultSet.getString("lectures_address"));
+              lectureDto.setLecturePhone(resultSet.getString("lectures_phone_number"));
+              lectureDto.setCouresId(resultSet.getString("course_id"));
+              lectureDtos.add(lectureDto);
+          }
+          return lectureDtos;
     }
 }

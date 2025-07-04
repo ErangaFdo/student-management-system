@@ -1,17 +1,25 @@
 package lk.ijse.gdse.studentmanagementsystem.Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.studentmanagementsystem.Dto.LectureDto;
+import lk.ijse.gdse.studentmanagementsystem.Dto.Tm.LectureTm;
 import lk.ijse.gdse.studentmanagementsystem.Model.LectureModel;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class LectureController {
+public class LectureController  implements Initializable {
 
     LectureModel lectureModel = new LectureModel();
 
@@ -67,10 +75,15 @@ public class LectureController {
     private AnchorPane lectureAnchorPane;
 
     @FXML
-    private TableView<?> lectureTable;
+    private TableView<LectureTm> lectureTable;
 
     @FXML
     void btnClearOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        refreshPage();
+    }
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String ID = lblID.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
@@ -80,17 +93,13 @@ public class LectureController {
 
             boolean isDeleted = lectureModel.deleteLecture(ID);
             if (isDeleted) {
-
+                loadLecture();
+                refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Lecture deleted...!").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Fail to delete Lecture...!").show();
             }
         }
-
-    }
-
-    @FXML
-    void btnDeleteOnAction(ActionEvent event) {
 
     }
 
@@ -107,6 +116,8 @@ public class LectureController {
         boolean isSave = lectureModel.saveLecture(lectureDto);
 
         if (isSave) {
+            loadLecture();
+            refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Lecture saved...!").show();
         }else{
             new Alert(Alert.AlertType.INFORMATION, "Lecture  not saved").show();
@@ -128,6 +139,8 @@ public class LectureController {
         boolean isSave = lectureModel.updateLecture(lectureDto);
 
         if (isSave) {
+            loadLecture();
+            refreshPage();
             new Alert(Alert.AlertType.INFORMATION, "Lecture Updated...!").show();
         }else{
             new Alert(Alert.AlertType.INFORMATION, "Lecture  not Updated").show();
@@ -137,7 +150,69 @@ public class LectureController {
 
     @FXML
     void tableOnClick(MouseEvent event) {
+            LectureTm lectureTm = (LectureTm) lectureTable.getSelectionModel().getSelectedItem();
+            if (lectureTm != null) {
+                lblID.setText(lectureTm.getLectureId());
+                lblNAME.setText(lectureTm.getLectureName());
+                lblAGE.setText(lectureTm.getLectureAge());
+                lblADRESS.setText(lectureTm.getLectureAdress());
+                lblMNUM.setText(lectureTm.getLecturePhone());
+                lblCoureseId.setText(lectureTm.getCouresId());
 
+                btnSave.setDisable(true);
+                btnUpdate.setDisable(false);
+                btnDelete.setDisable(false);
+            }
     }
 
+    private void refreshPage() {
+         btnSave.setDisable(false);
+         btnDelete.setDisable(true);
+         btnUpdate.setDisable(true);
+
+         lblID.setText("");
+         lblNAME.setText("");
+         lblAGE.setText("");
+         lblADRESS.setText("");
+         lblMNUM.setText("");
+         lblCoureseId.setText("");
+    }
+
+    private void loadLecture() throws SQLException, ClassNotFoundException {
+        ArrayList<LectureDto> lectureDtos = lectureModel.getAllLectures();
+        ObservableList<LectureTm> lectureTms = FXCollections.observableArrayList();
+
+        for (LectureDto lectureDto : lectureDtos) {
+            LectureTm lectureTm = new LectureTm();
+            lectureTm.setLectureId(lectureDto.getLectureId());
+            lectureTm.setLectureName(lectureDto.getLectureName());
+            lectureTm.setLectureAge(lectureDto.getLectureAge());
+            lectureTm.setLectureAdress(lectureDto.getLectureAdress());
+            lectureTm.setLecturePhone(lectureDto.getLecturePhone());
+            lectureTm.setCouresId(lectureDto.getCouresId()
+            );
+            lectureTms.add(lectureTm);
+        }
+            lectureTable.setItems(lectureTms);
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        clmId.setCellValueFactory(new PropertyValueFactory<>("lectureId"));
+        clmName.setCellValueFactory(new PropertyValueFactory<>("lectureName"));
+        clmAge.setCellValueFactory(new PropertyValueFactory<>("lectureAge"));
+        clmAdress.setCellValueFactory(new PropertyValueFactory<>("lectureAdress"));
+        clmMnum.setCellValueFactory(new PropertyValueFactory<>("lecturePhone"));
+        clmCourseId.setCellValueFactory(new PropertyValueFactory<>("CouresId"));
+
+        try {
+            loadLecture();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
