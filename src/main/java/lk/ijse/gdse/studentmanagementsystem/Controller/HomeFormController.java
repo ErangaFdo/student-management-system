@@ -69,7 +69,7 @@ public class HomeFormController {
 
     @FXML
     void btnPaymentOnAction(ActionEvent event) {
-
+        navigateTo("/view/PaymentForm.fxml");
     }
 
     @FXML

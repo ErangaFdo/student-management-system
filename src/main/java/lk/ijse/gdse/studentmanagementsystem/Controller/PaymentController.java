@@ -8,8 +8,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.studentmanagementsystem.Dto.PaymentDto;
+import lk.ijse.gdse.studentmanagementsystem.Model.PaymentModel;
+
+import java.sql.SQLException;
 
 public class PaymentController {
+
+    PaymentModel paymentModel = new PaymentModel();
 
     @FXML
     private Button btnClear;
@@ -70,7 +76,16 @@ public class PaymentController {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+         String paymentId = lblPaymentId.getText();
+         String attendentDate = lblAttendentDate.getText();
+         String amount = lblAmount.getText();
+         String discount = lblDiscount.getText();
+         String studentId = lblStudentId.getText();
+
+        PaymentDto paymentDto = new PaymentDto(paymentId, attendentDate, amount, discount, studentId);
+        boolean isSave = paymentModel.savePayment(paymentDto);
+
 
     }
 
