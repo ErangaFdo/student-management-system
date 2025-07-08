@@ -2,10 +2,7 @@ package lk.ijse.gdse.studentmanagementsystem.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.studentmanagementsystem.Dto.PaymentDto;
@@ -86,11 +83,33 @@ public class PaymentController {
         PaymentDto paymentDto = new PaymentDto(paymentId, attendentDate, amount, discount, studentId);
         boolean isSave = paymentModel.savePayment(paymentDto);
 
+        if (isSave) {
+
+            new Alert(Alert.AlertType.INFORMATION, "Payment Saved...!").show();
+        }else{
+            new Alert(Alert.AlertType.INFORMATION, "Payment  not save").show();
+        }
 
     }
 
+
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String paymentId = lblPaymentId.getText();
+        String attendentDate = lblAttendentDate.getText();
+        String amount = lblAmount.getText();
+        String discount = lblDiscount.getText();
+        String studentId = lblStudentId.getText();
+
+        PaymentDto paymentDto = new PaymentDto(paymentId, attendentDate, amount, discount, studentId);
+        boolean isSave = paymentModel.updatePayment(paymentDto);
+
+        if (isSave) {
+
+            new Alert(Alert.AlertType.INFORMATION, "Payment Update...!").show();
+        }else{
+            new Alert(Alert.AlertType.INFORMATION, "Payment  not Updated").show();
+        }
 
     }
 
