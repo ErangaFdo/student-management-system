@@ -40,7 +40,7 @@ public class PaymentModel {
         return issave;
     }
 
-    public boolean deletePayment(PaymentDto paymentDto) throws SQLException, ClassNotFoundException {
+    public boolean deletePayment(String paymentDto) throws SQLException, ClassNotFoundException {
         Connection connection = DbConnection.getInstance().getConnection();
         String query = "DELETE FROM payment WHERE payment_id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

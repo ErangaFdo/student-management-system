@@ -9,6 +9,7 @@ import lk.ijse.gdse.studentmanagementsystem.Dto.PaymentDto;
 import lk.ijse.gdse.studentmanagementsystem.Model.PaymentModel;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class PaymentController {
 
@@ -63,13 +64,26 @@ public class PaymentController {
     private TableView<?> paymentTable;
 
     @FXML
-    void btnClearOnAction(ActionEvent event) {
-
+    void btnClearOnAction(ActionEvent event) throws SQLException {
+        refreshPage();
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) {
+    void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+        String ID = lblPaymentId.getText();
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> optionalButtonType = alert.showAndWait();
+
+        if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
+
+            boolean isDeleted = paymentModel.deletePayment(ID);
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment deleted...!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to payment customer...!").show();
+            }
+        }
     }
 
     @FXML
@@ -116,6 +130,19 @@ public class PaymentController {
     @FXML
     void tableOnClick(MouseEvent event) {
 
+    }
+
+    private void refreshPage() throws SQLException {
+
+        btnSave.setDisable(false);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+
+        lblPaymentId.setText("");
+        lblAttendentDate.setText("");
+        lblAmount.setText("");
+        lblDiscount.setText("");
+        lblStudentId.setText("");
     }
 
 }
