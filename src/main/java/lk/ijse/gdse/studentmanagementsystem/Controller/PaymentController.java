@@ -2,16 +2,19 @@ package lk.ijse.gdse.studentmanagementsystem.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.gdse.studentmanagementsystem.Dto.PaymentDto;
 import lk.ijse.gdse.studentmanagementsystem.Model.PaymentModel;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class PaymentController {
+public class PaymentController implements Initializable {
 
     PaymentModel paymentModel = new PaymentModel();
 
@@ -145,4 +148,8 @@ public class PaymentController {
         lblStudentId.setText("");
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }
